@@ -1,10 +1,6 @@
 # modulos/login.py
 import streamlit as st
-import hashlib
 from config.conexion import q
-
-def h(p: str) -> str:
-    return hashlib.sha256(p.encode()).hexdigest()
 
 def view():
     st.subheader("Inicio de sesión")
@@ -16,8 +12,9 @@ def view():
 
     if c1.button("Entrar"):
         rows = q(
-            "SELECT id, username, rol FROM usuarios WHERE username=%s AND password_hash=%s",
-            (u, h(p)), True
+            "SELECT id, username, rol FROM usuarios "
+            "WHERE username=%s AND `password`=%s",
+            (u, p), True
         )
         if rows:
             st.session_state.update(
@@ -33,7 +30,8 @@ def view():
 
     if c2.button("Crear usuario demo (admin/admin)"):
         q(
-            "INSERT IGNORE INTO usuarios(username, password_hash, rol) VALUES('admin', %s, 'admin')",
-            (h("admin"),)
+            "INSERT INTO usuarios (username, `password`, rol) "
+            "VALUES ('admin','admin','admin') "
+            "ON DUPLICATE KEY UPDATE `password`='admin', rol='admin'"
         )
         st.success("Usuario demo listo")
