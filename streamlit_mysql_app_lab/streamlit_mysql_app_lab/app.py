@@ -17,6 +17,6 @@ else:
     with st.sidebar:
         st.caption(f"Usuario: {st.session_state.get('user','')}")
         if st.button("Cerrar sesión"):
-            st.session_state.clear(); st.session_state.clear() st.rerun()
+            st.session_state.clear(); st.rerun()
     s = menu()
     {"Clientes": clientes_view, "Productos": productos_view, "Ventas": ventas_view}[s]()
