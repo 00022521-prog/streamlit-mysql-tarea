@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) UNIQUE,
+  password_hash CHAR(64),
+  rol VARCHAR(20) DEFAULT 'usuario'
+);
+CREATE TABLE IF NOT EXISTS clientes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  email VARCHAR(120), telefono VARCHAR(30)
+);
+CREATE TABLE IF NOT EXISTS productos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100) NOT NULL,
+  precio DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  stock INT NOT NULL DEFAULT 0
+);
+CREATE TABLE IF NOT EXISTS ventas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cliente_id INT, producto_id INT,
+  cantidad INT NOT NULL DEFAULT 1,
+  total DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+INSERT IGNORE INTO usuarios(username, password_hash, rol)
+VALUES ('admin', SHA2('admin',256), 'admin');
