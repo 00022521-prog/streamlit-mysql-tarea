@@ -15,7 +15,7 @@ def view():
             else:
                 precio = float(pr.set_index("id").loc[p,"precio"])
                 q("INSERT INTO ventas(cliente_id,producto_id,cantidad,total) VALUES(%s,%s,%s,%s)",(c,p,cant,precio*cant))
-                st.experimental_rerun()
+                st.rerun()
     st.dataframe(df("""SELECT v.id, c.nombre cliente, p.nombre producto, v.cantidad, v.total, v.fecha
                        FROM ventas v LEFT JOIN clientes c ON c.id=v.cliente_id
                        LEFT JOIN productos p ON p.id=v.producto_id
