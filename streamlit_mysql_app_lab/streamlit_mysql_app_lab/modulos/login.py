@@ -9,8 +9,7 @@ def view():
         r = q("SELECT id,username,rol FROM usuarios WHERE username=%s AND password_hash=%s",(u,h(p)),True)
         if r:
             st.session_state.update(logged=True, uid=r[0]['id'], user=r[0]['username'], rol=r[0]['rol'])
-            st.success("¡Bienvenido!")
-st.rerun()
+            st.success("¡Bienvenido!") st.rerun()
         else: st.error("Credenciales inválidas")
     if c2.button("Crear usuario demo (admin/admin)"):
         q("INSERT IGNORE INTO usuarios(username,password_hash,rol) VALUES('admin',%s,'admin')",(h('admin'),))
