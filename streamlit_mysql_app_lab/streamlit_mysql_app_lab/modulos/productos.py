@@ -8,7 +8,7 @@ def view():
         pr = st.number_input("Precio", 0.0, step=0.01, format="%.2f")
         s = st.number_input("Stock", 0, step=1)
         if st.form_submit_button("Guardar") and n.strip():
-            q("INSERT INTO productos(nombre,precio,stock) VALUES(%s,%s,%s)",(n,pr,s)); st.experimental_rerun()
+            q("INSERT INTO productos(nombre,precio,stock) VALUES(%s,%s,%s)",(n,pr,s)); st.rerun()
     with st.expander("Eliminar"):
         i = st.number_input("ID",1,step=1,key="prod")
-        if st.button("Eliminar producto"): q("DELETE FROM productos WHERE id=%s",(int(i),)); st.experimental_rerun()
+        if st.button("Eliminar producto"): q("DELETE FROM productos WHERE id=%s",(int(i),)); st.rerun()
